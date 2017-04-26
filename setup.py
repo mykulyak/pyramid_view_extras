@@ -7,10 +7,18 @@ this_dir = osp.abspath(osp.dirname(__file__))
 
 try:
     README = open(osp.join(this_dir, 'README.md'), 'r').read()
-    CHANGES = open(osp.join(this_dir, 'CHANGES.md'), 'r').read()
 except IOError:
     README = ''
+
+try:
+    CHANGES = open(osp.join(this_dir, 'CHANGES.md'), 'r').read()
+except IOError:
     CHANGES = ''
+
+try:
+    REQUIREMENTS = open(osp.join(this_dir, 'requirements.txt'), 'r').read().splitlines()
+except IOError:
+    REQUIREMENTS = []
 
 
 def find_tests():
@@ -41,7 +49,7 @@ setup(
     ],
     packages=find_packages(),
     test_suite='setup.find_tests',
-    install_requires=['pyramid>=1.6'],
+    install_requires=REQUIREMENTS,
     author='Andriy Mykulyak',
     author_email='mykulyak@gmail.com',
     license='MIT',
